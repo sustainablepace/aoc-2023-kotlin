@@ -1,37 +1,20 @@
-import java.util.*
-
-val cardValue = mapOf(
-    'A' to 14,
-    'K' to 13,
-    'Q' to 12,
-    'J' to 11,
-    'T' to 10,
-    '9' to 9,
-    '8' to 8,
-    '7' to 7,
-    '6' to 6,
-    '5' to 5,
-    '4' to 4,
-    '3' to 3,
-    '2' to 2
-)
-val cardValueWithJokers = mapOf(
-    'A' to 14,
-    'K' to 13,
-    'Q' to 12,
-    'T' to 10,
-    '9' to 9,
-    '8' to 8,
-    '7' to 7,
-    '6' to 6,
-    '5' to 5,
-    '4' to 4,
-    '3' to 3,
-    '2' to 2,
-    'J' to 1
-)
-
 open class Hand(val cards: String) {
+
+    open val cardValue = mapOf(
+        'A' to 14,
+        'K' to 13,
+        'Q' to 12,
+        'J' to 11,
+        'T' to 10,
+        '9' to 9,
+        '8' to 8,
+        '7' to 7,
+        '6' to 6,
+        '5' to 5,
+        '4' to 4,
+        '3' to 3,
+        '2' to 2
+    )
     open fun cardValue(): Int =
         15 * 15 * 15 * 15 * cardValue[cards[0]]!! + 15 * 15 * 15 * cardValue[cards[1]]!! + 15 * 15 * cardValue[cards[2]]!! + 15 * cardValue[cards[3]]!! + cardValue[cards[4]]!!
     override fun toString(): String {
@@ -62,8 +45,23 @@ open class Hand(val cards: String) {
 }
 
 class HandWithJokers(cards: String): Hand(cards) {
+    override val cardValue = mapOf(
+        'A' to 14,
+        'K' to 13,
+        'Q' to 12,
+        'T' to 10,
+        '9' to 9,
+        '8' to 8,
+        '7' to 7,
+        '6' to 6,
+        '5' to 5,
+        '4' to 4,
+        '3' to 3,
+        '2' to 2,
+        'J' to 1
+    )
     override fun cardValue(): Int =
-        15 * 15 * 15 * 15 * cardValueWithJokers[cards[0]]!! + 15 * 15 * 15 * cardValueWithJokers[cards[1]]!! + 15 * 15 * cardValueWithJokers[cards[2]]!! + 15 * cardValueWithJokers[cards[3]]!! + cardValueWithJokers[cards[4]]!!
+        15 * 15 * 15 * 15 * cardValue[cards[0]]!! + 15 * 15 * 15 * cardValue[cards[1]]!! + 15 * 15 * cardValue[cards[2]]!! + 15 * cardValue[cards[3]]!! + cardValue[cards[4]]!!
 
     override fun valueOf(): Int {
         val cardsWithoutJokers = cards.replace("J", "")
@@ -89,9 +87,7 @@ class HandWithJokers(cards: String): Hand(cards) {
     }
 }
 
-
 fun main() {
-
     fun part1(input: List<String>): Int {
         return input.map {
             it.split(" ").let { (hand, bid) ->
