@@ -24,7 +24,7 @@ fun List<Galaxy>.product(): Set<Pair<Galaxy, Galaxy>> {
     return pairs
 }
 
-fun Set<Pair<Galaxy, Galaxy>>.sumOfDistances(linesWithOnlySpace:List<Int>, columnsWithOnlySpace:List<Int>, factor:Long): Long {
+fun Set<Pair<Galaxy, Galaxy>>.sumOfDistances(linesWithOnlySpace:List<Int> = emptyList(), columnsWithOnlySpace:List<Int> = emptyList(), factor:Long = 1L): Long {
     return sumOf { (galaxy, otherGalaxy) ->
         val x = listOf(galaxy.first, otherGalaxy.first).sorted().let { it[0]..it[1] }.toList()
         val y = listOf(galaxy.second, otherGalaxy.second).sorted().let { it[0]..it[1] }.toList()
@@ -35,7 +35,7 @@ fun Set<Pair<Galaxy, Galaxy>>.sumOfDistances(linesWithOnlySpace:List<Int>, colum
         val additionalLines = (factor - 1) * linesWithOnlySpace.count {
             y.contains(it)
         }
-        x.size - 1 + additionalLines + y.size - 1 + additionalColumns
+        x.size - 1 + additionalColumns + y.size - 1 + additionalLines
     }
 }
 fun main() {
